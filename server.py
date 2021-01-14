@@ -8,6 +8,8 @@ def create_app():
     app.add_url_rule("/problemset", view_func=views.problemset_page)
     app.add_url_rule("/rating", view_func=views.rating_page)
     app.add_url_rule("/profile", view_func=views.profile_page)
+    app.add_url_rule("/login", view_func=views.login_page)
+    app.add_url_rule("/register", view_func=views.register_page)
 
     return app
 
