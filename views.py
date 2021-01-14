@@ -1,10 +1,12 @@
-from flask import render_template
+from flask import render_template, current_app
 
 def home_page():
     return render_template("home.html")
 
 def problemset_page():
-    return render_template("problemset.html")
+    db = current_app.config["db"]
+    problems = db.get_problems()
+    return render_template("problemset.html", problems = problems)
 
 def rating_page():
     return render_template("rating.html")

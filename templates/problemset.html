@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Problemset{% endblock %}
 {% block content %}
+    <h1 class="title">Problemset</h1>
+    {% if problems%}
+    <table class="table is-striped is-fullwidth">
+        {%for problem_key, problem in problems%}
+        <tr>
+            <td>
+                {{problem.name}}
+                {{problem.difficulty}}
+                <a class="button" href="{{problem.url}}">
+                    Solve
+                </a>
 
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    {%endif%}
 {% endblock %}

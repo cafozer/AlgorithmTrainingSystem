@@ -1,4 +1,6 @@
 from flask import Flask
+from database import Database
+from problem import Problem
 import views
 
 def create_app():
@@ -11,6 +13,10 @@ def create_app():
     app.add_url_rule("/login", view_func=views.login_page)
     app.add_url_rule("/register", view_func=views.register_page)
 
+    db = Database()
+    db.add_problem(Problem("Hello World Challenge!", "https://www.hackerrank.com/challenges/30-hello-world/problem", "Easy"))
+    app.config["db"] = db
+    
     return app
 
 
