@@ -1,0 +1,5 @@
+.no-click{
+    pointer-events: none;
+    background-color: red;
+    text-align: center;
+}

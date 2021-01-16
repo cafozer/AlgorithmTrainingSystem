@@ -4,15 +4,42 @@
     <h1 class="title">Problemset</h1>
     {% if problems%}
     <table class="table is-striped is-fullwidth">
+        <td>
+            <div class="columns">
+                <div class="column is-4">
+                    Problem Name
+                </div>
+                <div class="column is-2">
+                    Difficulty
+                </div>
+                <div class="column is-3">
+                    Topics
+                </div>
+            </div>
+        </td>
         {%for problem_key, problem in problems%}
         <tr>
             <td>
-                {{problem.name}}
-                {{problem.difficulty}}
-                <a class="button" href="{{problem.url}}">
-                    Solve
-                </a>
-
+                <div class="columns">
+                    <div class="column is-4">
+                        {{problem.name}}
+                    </div>
+                    <div class="column is-2">
+                        {{problem.difficulty}}
+                    </div>
+                    <div class="column is-3">
+                        {%for topic in problem.topics%}
+                            <button class="no-click">
+                                {{topic}}
+                            </button>
+                        {%endfor%}
+                    </div>
+                    <div class="column is-2">
+                        <a class="button" href="{{problem.url}}">
+                            Solve
+                        </a>
+                    </div>
+                </div>
             </td>
         </tr>
         {%endfor%}
