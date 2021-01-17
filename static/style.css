@@ -3,3 +3,8 @@
     background-color: red;
     text-align: center;
 }
+
+.add-button{
+    text-align: right;
+    margin-right: 10mm;
+}

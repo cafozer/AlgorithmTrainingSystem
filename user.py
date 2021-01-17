@@ -5,6 +5,9 @@ class User(UserMixin):
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        self.number_of_problems_added = 0
+        self.number_of_likes = 0
+        self.number_of_dislikes = 0
         self.active = True
         self.is_admin = False
 

@@ -1,39 +1,47 @@
 {% extends "layout.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<section class="hero is-primary is-fullheight" style="background-color: bisque;">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-3-desktop">
-            <form action="" method="POST" name="register" class="box">
-              <div class="field">
-                <label for="" class="label">Choose a Username</label>
-                <div class="control">
-                  <input type="username" class="input" required>
-                </div>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-grey">Register</h3>
+        <div class="box">
+          <form action="" method="POST" name="login_page">
+            {{ form.csrf_token }}
+
+            <div class="field">
+              <div class="control">
+                {{ form.username(required=True, autofocus=True,
+                                 class='input is-large',
+                                 placeholder='choose username') }}
               </div>
-              <div class="field">
-                <label for="" class="label">Enter Password</label>
-                <div class="control">
-                  <input type="password" class="input" required>
-                </div>
+              {% for error in form.username.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}
+            </div>
+
+            <div class="field">
+              <div class="control">
+                {{ form.password(required=True, class='input is-large',
+                                 placeholder='choose password') }}
               </div>
-              <div class="field">
-                <label for="" class="label">Confirm Password</label>
-                <div class="control">
-                  <input type="password" class="input" required>
-                </div>
-              </div>
-              <div class="field">
-                <button class="button is-success">
-                  Sign up
-                </button>
-              </div>
-            </form>
-          </div>
+              {% for error in form.password.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 {% endblock %}

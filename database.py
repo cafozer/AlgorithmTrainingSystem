@@ -1,6 +1,9 @@
 from problem import Problem
 from topic import Topic
 from problem_topic_rel import Problem_topic_rel
+import psycopg2
+import psycopg2.extras
+
 class Database:
     def __init__(self):
         self.users = {}
@@ -11,7 +14,12 @@ class Database:
         self.last_topic_key = 0
         self.problem_topic_rels = []
         self.status = []
-    
+
+    def add_user(self, user):
+        self.last_user_key += 1
+        self.users[self.last_user_key] = user
+        return self.last_user_key
+
     def add_problem(self, problem):
         self.last_problem_key += 1
         self.problems[self.last_problem_key] = problem
@@ -23,16 +31,17 @@ class Database:
 
     def get_problem(self, problem_key):
         problem = self.problems.get(problem_key)
-        if problems is None:
+        if problem is None:
             return None
-        problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.topics)
+        problem_ = Problem(problem.name, problem.url, problem.difficulty)
         return problem_
     
     def get_problems(self):
         problems = []
         for problem_key, problem in self.problems.items():
-            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.topics, problem.owner_id, problem.likes, problem.dislikes)
-            problems.append((problem_key, problem))
+            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
+            print(problem_.url)
+            problems.append((problem_key, problem_))
         return problems
 
     def add_topic(self, topic):
@@ -77,7 +86,7 @@ class Database:
     def sort_by_likes(self):
         problems = []
         for problem_key, problem in self.problems.items():
-            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.topics, problem.owner_id, problem.likes, problem.dislikes)
+            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
             problems.append((problem.likes-problem.dislikes, problem_key, problem_))
         problems.sort(reverse=True)
         problems_ = [prob[1:] for prob in problems]
@@ -86,7 +95,7 @@ class Database:
     def sort_by_difficulty_ascending(self):
         problems = []
         for problem_key, problem in self.problems.items():
-            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.topics, problem.owner_id, problem.likes, problem.dislikes)
+            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
             problems.append((problem.difficulty, problem_key, problem_))
         problems.sort()
         problems_ = [prob[1:] for prob in problems]
@@ -95,7 +104,8 @@ class Database:
     def sort_by_difficulty_descending(self):
         problems = []
         for problem_key, problem in self.problems.items():
-            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.topics, problem.owner_id, problem.likes, problem.dislikes)
+            problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
+            print(problem_.url)
             problems.append((problem.difficulty, problem_key, problem_))
         problems.sort(reverse=True)
         problems_ = [prob[1:] for prob in problems]
