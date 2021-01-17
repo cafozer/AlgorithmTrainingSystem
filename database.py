@@ -10,8 +10,8 @@ class Database:
         self.last_user_key = 0
         self.problems = {}
         self.last_problem_key = 0
-        self.topics = {"dfs-and-similar", "graph-theory", "math", "dynamic-programming"}
-        self.last_topic_key = 0
+        self.topics = [(0,Topic("dfs-and-similar")), (1,Topic("graph-theory")), (2,Topic("math")), (3,Topic("dynamic-programming"))]
+        self.last_topic_key = 3
         self.problem_topic_rels = []
         self.status = []
 
@@ -40,14 +40,19 @@ class Database:
         problems = []
         for problem_key, problem in self.problems.items():
             problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
-            print(problem_.url)
             problems.append((problem_key, problem_))
         return problems
 
     def add_topic(self, topic):
         self.last_topic_key +=1
-        self.topics[self.last_topic_key] = topic
+        self.topics.append((self.last_topic_key,topic))
         return self.last_topic_key
+
+    def give_topics(self):
+        ret = []
+        for key, name in self.topics:
+            ret.append((key, name))
+        return ret
     
     def add_problem_topic_rel(self, topic_id, problem_id):
         self.problem_topic_rels.append((topic_id, problem_id))
@@ -105,8 +110,12 @@ class Database:
         problems = []
         for problem_key, problem in self.problems.items():
             problem_ = Problem(problem.name, problem.url, problem.difficulty, problem.owner_id, problem.likes, problem.dislikes)
-            print(problem_.url)
             problems.append((problem.difficulty, problem_key, problem_))
         problems.sort(reverse=True)
         problems_ = [prob[1:] for prob in problems]
         return problems_     
+
+    def get_user_id_num(self, target_name):
+        for idnum, user in self.users:
+            if user.username == target_name:
+                return idnum

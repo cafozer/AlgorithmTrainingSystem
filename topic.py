@@ -1,4 +1,4 @@
 class Topic:
-    def __init__(self, id, name):
+    def __init__(self, name):
         self.id = id
         self.name = name

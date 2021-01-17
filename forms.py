@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, PasswordField, validators, SelectField, SubmitField, RadioField
-from flask import current_app
+from wtforms import Form, widgets, StringField, PasswordField, validators, SelectField, SubmitField, RadioField, BooleanField, SelectMultipleField
+from flask import render_template, current_app, flash, request, url_for, redirect, g
 import server
+
 
 class RegisterForm(FlaskForm):
     username = StringField("Username", [validators.DataRequired()])
@@ -16,5 +17,5 @@ class AddProblemForm(FlaskForm):
     problem_url = StringField("Problem Url", [validators.DataRequired()])
     problem_difficulty = SelectField("Problem Difficulty", choices=[(1,"Easy"), (2,"Medium"), (3,"Hard")])
 
-class LikeDislikeForm(FlaskForm):
-    likeordislike = RadioField("Like or Dislike", choices = [(1,"Like"), (0,"Dislike")])
+class NewTopicForm(FlaskForm):
+    topic_name = StringField("Topic Name", [validators.DataRequired()])

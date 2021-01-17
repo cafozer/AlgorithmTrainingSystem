@@ -58,14 +58,7 @@
 
                     </div>
                     <div class="column is-2">
-                        <a href="{{url_for('like_action')}}">Like</a>
-                        <form action="/change_like_dislike" name="problemset_page">
-                            {{ form[problem_key].csrf_token }}
-                            <div class="control">
-                                {{form[problem_key].likeordislike()}}
-                                {{problem_key}}
-                            </div>
-                        </form>
+                        like dislike
                     </div>
                     <div class="column is-2">
                         <a class="button" href="{{problem.url}}">

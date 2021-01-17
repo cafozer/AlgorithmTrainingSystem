@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Add New Topic{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-grey">Add New Topic to System</h3>
+        <div class="box">
+          <form action="" method="POST" name="new_topic_page">
+            {{ form.csrf_token }}
+
+            <div class="field">
+              <div class="control">
+                {{ form.topic_name(required=True, autofocus=True,
+                                 class='input is-large',
+                                 placeholder='topic name') }}
+              </div>
+              {% for error in form.topic_name.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
