@@ -19,3 +19,6 @@ class AddProblemForm(FlaskForm):
 
 class NewTopicForm(FlaskForm):
     topic_name = StringField("Topic Name", [validators.DataRequired()])
+
+class SortForm(FlaskForm):
+    """blank"""

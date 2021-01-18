@@ -1,5 +1,6 @@
 class Problem:
     def __init__(self, name, url, difficulty, owner_id, likes=0, dislikes=0):
+        self.key = None
         self.name = name
         self.url = url
         self.difficulty = difficulty

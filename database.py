@@ -10,7 +10,7 @@ class Database:
         self.last_user_key = 0
         self.problems = {}
         self.last_problem_key = 0
-        self.topics = [(0,Topic("dfs-and-similar")), (1,Topic("graph-theory")), (2,Topic("math")), (3,Topic("dynamic-programming"))]
+        self.topics = {0:Topic("dfs-and-similar"), 1:Topic("graph-theory"), 2:Topic("math"), 3:Topic("dynamic-programming")}
         self.last_topic_key = 3
         self.problem_topic_rels = []
         self.status = []
@@ -20,9 +20,17 @@ class Database:
         self.users[self.last_user_key] = user
         return self.last_user_key
 
+    def get_user_key(self, username):
+        for key, name in self.users:
+            if name == username:
+                return key
+        return None
+
     def add_problem(self, problem):
         self.last_problem_key += 1
         self.problems[self.last_problem_key] = problem
+        self.problems[self.last_problem_key].key = self.last_problem_key
+        problem.key = self.last_problem_key
         return self.last_problem_key
     
     def delete_problem(self, problem_key):
@@ -33,8 +41,7 @@ class Database:
         problem = self.problems.get(problem_key)
         if problem is None:
             return None
-        problem_ = Problem(problem.name, problem.url, problem.difficulty)
-        return problem_
+        return problem
     
     def get_problems(self):
         problems = []
@@ -43,22 +50,39 @@ class Database:
             problems.append((problem_key, problem_))
         return problems
 
+    def give_like(self, probkey):
+        problem = self.problems.get(probkey)
+        problem.likes += 1
+
+    def give_dislike(self, probkey):
+        problem = self.problems.get(probkey)
+        problem.dislikes += 1
+
     def add_topic(self, topic):
         self.last_topic_key +=1
-        self.topics.append((self.last_topic_key,topic))
+        self.topics[self.last_topic_key] = topic
         return self.last_topic_key
+
+    def get_topic(self, key):
+        topic = self.topics.get(int(key))
+        if topic is None:
+            return None
+        return topic
 
     def give_topics(self):
         ret = []
-        for key, name in self.topics:
-            ret.append((key, name))
+        for key, topic in self.topics.items():
+            ret.append((key, topic.name))
         return ret
     
     def add_problem_topic_rel(self, topic_id, problem_id):
         self.problem_topic_rels.append((topic_id, problem_id))
 
+    def give_rels(self):
+        return self.problem_topic_rels
+
     def add_status(self, status_):
-        self.status.append(status)
+        self.status.append(status_)
 
     def find_weak_topics(self, user_id_):
         weakness = {}
