@@ -7,6 +7,8 @@ import views
 import forms
 import psycopg2
 import forms
+import os
+
 lm = LoginManager()
 
 @lm.user_loader
@@ -34,7 +36,7 @@ def create_app():
     #app.add_url_rule("/problemset/sort_by_difficulty_descending", view_func=views.problemset_sort_diff_des)
     #app.add_url_rule("/problemset/sort_by_like", view_func=views.problemset_sort_like)
     
-
+    #print(os.getenv('DATABASE_URL'))
     lm.init_app(app)
     lm.login_view = "login_page"
 

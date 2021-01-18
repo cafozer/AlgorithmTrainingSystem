@@ -106,7 +106,7 @@ def problem_add_page():
         problem_id = db.add_problem(newproblem)
         for topic_id in form.data["problem_topics"]:
             db.add_problem_topic_rel(topic_id, problem_id)
-        next_page = request.args.get("next", url_for("problemset_page"))
+        next_page = request.args.get("next", url_for("problemset_page", sort='default'))
         return redirect(next_page)
     return render_template("problem_add.html", form=form)
 
