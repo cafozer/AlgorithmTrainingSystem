@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, widgets, StringField, PasswordField, validators, SelectField, SubmitField, RadioField, BooleanField, SelectMultipleField
 from flask import render_template, current_app, flash, request, url_for, redirect, g
-import server
 
 
 class RegisterForm(FlaskForm):

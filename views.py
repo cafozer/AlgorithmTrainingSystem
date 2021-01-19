@@ -30,7 +30,6 @@ def logout_page():
     return redirect(next_page)
 
 def home_page():
-    print(current_user)
     return render_template("home.html")
 
 @login_required
