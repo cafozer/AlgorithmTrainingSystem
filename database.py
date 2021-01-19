@@ -5,6 +5,8 @@ from problem_topic_rel import Problem_topic_rel
 import psycopg2
 import psycopg2.extras
 from collections import defaultdict
+import os
+import sys
 
 class Database:
     def __init__(self):
@@ -18,7 +20,8 @@ class Database:
         self.problem_topic_rels = []
         self.status = []
         """
-        self.connection = psycopg2.connect(user="postgres", password="pgadminpw",database="ats")
+        self.url = os.getenv("DATABASE_URL")
+        self.connection = psycopg2.connect(self.url)
         self.cur = self.connection.cursor()
 
     def add_user(self, user):
