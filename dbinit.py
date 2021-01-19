@@ -22,7 +22,7 @@ INIT_STATEMENTS = [
   Number_of_likes               		INT NOT NULL,
   Number_of_dislikes           		INT NOT NULL,
   User_ID				INT NOT NULL,
-  PRIMARY KEY (Question_ID),
+  PRIMARY KEY (problem_ID),
   FOREIGN KEY (User_ID)
     REFERENCES user_table(User_ID)
 )""",
