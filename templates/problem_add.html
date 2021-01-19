@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Register{% endblock %}
+{% block title %}Add Problem{% endblock %}
 {% block content %}
 <section class="hero">
     <div class="hero-body">
@@ -44,9 +44,14 @@
               {% endfor %}  
               <div class="field">
                 <div class="control">
-                  {{ form.problem_topics(required=False) }}
+                  {{ form.problem_topics(required=True) }}
                 </div>
               </div>
+              {% for error in form.problem_topics.errors %}
+              <p class="help has-background-warning">
+                  {{ error }}
+              </p>
+            {% endfor %}  
               <a class="button is-small" style="margin-bottom: 5mm;" href="{{url_for('new_topic_page')}}">
                 Add new topic
               </a>

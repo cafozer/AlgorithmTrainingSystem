@@ -1,10 +1,14 @@
 .no-click{
     pointer-events: none;
-    background-color: red;
+    background-color: blue;
     text-align: center;
 }
 
 .add-button{
     text-align: right;
-    margin-right: 10mm;
+    margin-right: 5mm;
+}
+
+.weak-topics{
+    margin-bottom: 20mm;
 }

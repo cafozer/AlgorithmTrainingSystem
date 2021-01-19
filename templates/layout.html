@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>ATS - {%block title%}{%endblock%}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-        <link rel="stylesheet" href="./static/style.css">
+        <link rel="stylesheet" href="/static/style.css">
         <nav class="navbar" role="navigation" aria-label="main navigation" style="margin-bottom: 70px; background-color: rgb(51, 142, 247);">
         
             <div id="navbar" class="navbar-menu">
@@ -21,7 +21,7 @@
                     RATING
                 </a>
                 
-                <a class="navbar-item" href="{{url_for('profile_page')}}">
+                <a class="navbar-item" href="{{url_for('profile_page', userid=current_user.username)}}">
                     MY PROFILE
                 </a>
                 {% endif %}

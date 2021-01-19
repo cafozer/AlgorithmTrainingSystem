@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}Problems of {{current_user.username}}{% endblock %}
+{% block content %}
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">Problems of {{current_user.username}}</h1>
+        </div>
+    </div>
+    
+
+    {% if problems%}
+    <table class="table is-striped is-fullwidth">
+        <td>
+            <div class="columns">
+                <div class="column is-2">
+                    Problem Name
+                </div>
+                <div class="column is-2">
+                    Difficulty
+                </div>
+                <div class="column is-2">
+                    Topics
+                </div>
+            </div>
+        </td>
+        {%for problem_key, problem in problems%}
+        <tr>
+            <td>
+                <div class="columns">
+                    <div class="column is-2">
+                        {{problem.name}}
+                    </div>
+                    <div class="column is-2">
+
+                        {% if problem.difficulty == '1' %}
+                            Easy
+                        {% elif problem.difficulty == '2' %}
+                            Medium
+                        {% else %}
+                            Hard
+                        {% endif %}
+                    </div>
+                    <div class="column is-6">
+                        {%for topicc, problemm in relations%}
+                            {% if problemm == problem.name %}
+                            <button class="no-click">
+                                {{topicc}}
+                            </button>
+                            {% endif %}
+                        {%endfor%}
+                    </div>
+                    <div class="column is-1">
+                        <a class="button is-warning" href="{{url_for('update_problem_page', probid=problem.name)}}">
+                            Update
+                        </a>
+                    </div>
+                    <div class="column is-1">
+                        <a class="button is-danger" href="{{url_for('delete_problem_page', probid=problem.name)}}">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    {%endif%}
+{% endblock %}

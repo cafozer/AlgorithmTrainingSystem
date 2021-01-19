@@ -1,5 +1,44 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Rating{% endblock %}
 {% block content %}
-
+{% if users%}
+<table class="table is-striped is-fullwidth">
+    <td>
+        <div class="columns">
+            <div class="column is-3">
+                Username
+            </div>
+            <div class="column is-3">
+                Total Number of Problmes Added
+            </div>
+            <div class="column is-3">
+                Total Likes
+            </div>
+            <div class="column is-3">
+                Total Dislikes
+            </div>
+        </div>
+    </td>
+    {%for user in users%}
+    <tr>
+        <td>
+            <div class="columns">
+                <div class="column is-3">
+                    {{user.username}}
+                </div>
+                <div class="column is-3">
+                    {{user.number_of_questions_added}}
+                </div>
+                <div class="column is-3">
+                    {{user.number_of_likes}}
+                </div>
+                <div class="column is-3">
+                    {{user.number_of_dislikes}}
+                </div>
+            </div>
+        </td>
+    </tr>
+    {%endfor%}
+</table>
+{%endif%}
 {% endblock %}

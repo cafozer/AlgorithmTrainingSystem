@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Update Problem{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-4 is-offset-4">
+          <h3 class="title has-text-grey">Update Problem</h3>
+          <div class="box">
+            <form action="" method="POST" name="problem_add_page">
+                {{ form.csrf_token }}
+              <div class="field">
+                <div class="control">
+                  {{ form.problem_name(required=True, autofocus=True,
+                                   class='input is-large',
+                                   placeholder='New Name of Problem') }}
+                </div>
+              </div>
+              {% for error in form.problem_name.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}
+              <div class="field">
+                <div class="control">
+                  {{ form.problem_url(required=True, class='input is-large',
+                                   placeholder='New URL of Problem') }}
+                </div>
+              </div>
+              {% for error in form.problem_url.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}  
+              <div class="field">
+                <div class="control">
+                  {{ form.problem_difficulty(required=True) }}
+                </div>
+              </div>
+              {% for error in form.problem_difficulty.errors %}
+                <p class="help has-background-warning">
+                    {{ error }}
+                </p>
+              {% endfor %}  
+              <div class="field">
+                <div class="control">
+                  {{ form.problem_topics(required=False) }}
+                </div>
+              </div>
+              <a class="button is-small" style="margin-bottom: 5mm;" href="{{url_for('new_topic_page')}}">
+                Add new topic
+              </a>
+              <button class="button is-block is-info is-large is-fullwidth">
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

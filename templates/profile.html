@@ -1,5 +1,50 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}{{current_user.username}}{% endblock %}
 {% block content %}
-
+<section class="hero is-info welcome is-small" style="margin-bottom:10mm">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Hello, {{current_user.username}}.
+            </h1>
+            <h2 class="subtitle">
+                I hope you are having a great day!
+            </h2>
+        </div>
+    </div>
+</section>
+<section class="info-tiles">
+    <div class="tile is-ancestor has-text-centered">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">{{number_of_questions}}</p>
+                <p class="subtitle">Problems Added to System</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">{{likes}}</p>
+                <p class="subtitle">Total Likes</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">{{dislikes}}</p>
+                <p class="subtitle">Total Dislikes</p>
+            </article>
+        </div>
+    </div>
+</section>
+<div class="columns">
+    <div class="column is-6">
+        <a href="{{url_for('problems_of_a_user', userid=current_user.username)}}">
+        <button class="button is-medium is-fullwidth is-success" style="margin-top:50mm">My Questions</button>
+        </a>
+    </div>
+    <div class="column is-6">
+        <a href="{{url_for('analyze_me_page')}}">
+        <button class="button is-medium is-fullwidth is-success" style="margin-top:50mm">Analyze Me</button>
+        </a>
+    </div>
+</div>
 {% endblock %}
