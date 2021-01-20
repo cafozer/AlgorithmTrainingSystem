@@ -143,7 +143,7 @@ def new_topic_page():
         newtopic = Topic(name)
         check = db.add_topic(newtopic)
         if check is None:
-            flash("Problem name is already exist")
+            flash("Topic name is already exist")
             return redirect(url_for('problem_add_page'))
         return redirect(url_for('problem_add_page'))
     return render_template("addnewtopic.html", form=form)
