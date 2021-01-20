@@ -77,12 +77,12 @@
                         {{problem.dislikes}}
                     </div>
                     <div class="column is-1">
-                        <a class="button is-small" href="{{url_for('like_page', probid=problem.name, nextsort=sort)}}">like</a>
-                        <a class="button is-small" href="{{url_for('dislike_page', probid=problem.name, nextsort=sort)}}">dislike</a>
+                        <a class="button is-small" href="{{url_for('like_page', probid=problem.name, nextsort='analyzeme')}}">like</a>
+                        <a class="button is-small" href="{{url_for('dislike_page', probid=problem.name, nextsort='analyzeme')}}">dislike</a>
                     </div>
                     <div class="column is-2">
-                        <a class="button is-small" href="{{url_for('solved_page', probid=problem.name, nextsort=sort)}}">solved</a>
-                        <a class="button is-small" href="{{url_for('cant_solved_page', probid=problem.name, nextsort=sort)}}">cannot solved</a>
+                        <a class="button is-small" href="{{url_for('solved_page', probid=problem.name, nextsort='analyzeme')}}">solved</a>
+                        <a class="button is-small" href="{{url_for('cant_solved_page', probid=problem.name, nextsort='analyzeme')}}">cannot solved</a>
                     </div>
                     <div class="column is-1">
                         <a class="button" href="{{problem.url}}" target="_blank">

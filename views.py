@@ -152,6 +152,8 @@ def like_page(probid, nextsort):
             owner_id = problem.owner_id
     db.give_like(inc)
     db.increase_likes(owner_id)
+    if nextsort == 'analyzme':
+        return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
 def dislike_page(probid, nextsort):
@@ -163,6 +165,8 @@ def dislike_page(probid, nextsort):
             owner_id = problem.owner_id
     db.give_dislike(inc)
     db.increase_dislikes(owner_id)
+    if nextsort == 'analyzme':
+        return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
 def solved_page(probid, nextsort):
@@ -172,6 +176,8 @@ def solved_page(probid, nextsort):
         if problem.name == probid:
             problem_id = key
     db.add_status(Status(problem_id, db.get_user_key(current_user.username), 1))
+    if nextsort == 'analyzme':
+        return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
 def cant_solved_page(probid, nextsort):
@@ -182,6 +188,8 @@ def cant_solved_page(probid, nextsort):
         if problem.name == probid:
             problem_id = key
     db.add_status(Status(problem_id, db.get_user_key(current_user.username), 0))
+    if nextsort == 'analyzme':
+        return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
 def problems_of_a_user(userid):
