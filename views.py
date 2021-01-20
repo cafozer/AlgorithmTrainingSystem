@@ -30,7 +30,9 @@ def logout_page():
     return redirect(next_page)
 
 def home_page():
-    return render_template("home.html")
+    db = current_app.config["db"]
+    problem_number = db.give_total_problems()
+    return render_template("home.html", problem_number=problem_number)
 
 @login_required
 def problemset_page(sort):
@@ -63,6 +65,7 @@ def problemset_page(sort):
             return redirect(url_for('problemset_page', sort="most_like"))
     return render_template("problemset.html", problems = problems, relations=relations, form=form, sort=sort)
 
+@login_required
 def rating_page():
     db = current_app.config["db"]
     user_names = db.get_users_by_like()
@@ -71,6 +74,7 @@ def rating_page():
         users.append(db.get_user(name[0]))
     return render_template("rating.html", users=users)
 
+@login_required
 def profile_page(userid):
     print(userid)
     db = current_app.config["db"]
@@ -130,6 +134,7 @@ def problem_add_page():
         return redirect(next_page)
     return render_template("problem_add.html", form=form)
 
+@login_required
 def new_topic_page():
     form = NewTopicForm()
     if form.validate_on_submit():
@@ -143,6 +148,7 @@ def new_topic_page():
         return redirect(url_for('problem_add_page'))
     return render_template("addnewtopic.html", form=form)
 
+@login_required
 def like_page(probid, nextsort):
     db = current_app.config["db"]
     problems = db.get_problems()
@@ -152,10 +158,11 @@ def like_page(probid, nextsort):
             owner_id = problem.owner_id
     db.give_like(inc)
     db.increase_likes(owner_id)
-    if nextsort == 'analyzme':
+    if nextsort == "analyzme":
         return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
+@login_required
 def dislike_page(probid, nextsort):
     db = current_app.config["db"]
     problems = db.get_problems()
@@ -165,10 +172,11 @@ def dislike_page(probid, nextsort):
             owner_id = problem.owner_id
     db.give_dislike(inc)
     db.increase_dislikes(owner_id)
-    if nextsort == 'analyzme':
+    if nextsort == "analyzme":
         return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
+@login_required
 def solved_page(probid, nextsort):
     db = current_app.config["db"]
     problems = db.get_problems()
@@ -176,10 +184,11 @@ def solved_page(probid, nextsort):
         if problem.name == probid:
             problem_id = key
     db.add_status(Status(problem_id, db.get_user_key(current_user.username), 1))
-    if nextsort == 'analyzme':
+    if nextsort == "analyzme":
         return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
+@login_required
 def cant_solved_page(probid, nextsort):
     print("cant solved")
     db = current_app.config["db"]
@@ -188,10 +197,11 @@ def cant_solved_page(probid, nextsort):
         if problem.name == probid:
             problem_id = key
     db.add_status(Status(problem_id, db.get_user_key(current_user.username), 0))
-    if nextsort == 'analyzme':
+    if nextsort == "analyzme":
         return redirect(url_for('analyze_me_page'))
     return redirect(url_for('problemset_page', sort=nextsort))
 
+@login_required
 def problems_of_a_user(userid):
     db = current_app.config["db"]
     problems = db.get_problems_of_a_user(userid)
@@ -201,6 +211,7 @@ def problems_of_a_user(userid):
         relations.append((db.get_topic(topic_key).name, db.get_problem(problem_key).name))
     return render_template("problems_of_a_user.html", problems=problems, relations=relations)
 
+@login_required
 def update_problem_page(probid):
     db = current_app.config["db"]
     setattr(AddProblemForm, 'problem_topics', MultiCheckboxField('Problem Topics', choices=db.give_topics(), validators=[at_least_one]))
@@ -222,6 +233,7 @@ def update_problem_page(probid):
         return redirect(next_page)
     return render_template("update_problem.html", form=form)
 
+@login_required
 def delete_problem_page(probid):
     db = current_app.config["db"]
     key = db.get_problem_key(probid)
@@ -234,6 +246,7 @@ def delete_problem_page(probid):
     db.decrease_dislikes(deleted_problem.dislikes, current_user.username)
     return redirect(request.referrer)
 
+@login_required
 def analyze_me_page():
     db = current_app.config["db"]
     user_id = db.get_user_key(current_user.username)

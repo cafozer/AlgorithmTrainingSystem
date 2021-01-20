@@ -568,3 +568,14 @@ class Database:
         except Exception as err:
             print("Error: ", err)
             
+    def give_total_problems(self):
+        try:
+            with psycopg2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                statement = "SELECT SUM(number_of_questions_added) FROM user_table"
+                cursor.execute(statement)
+                ret = cursor.fetchone()[0]
+                cursor.close()
+                return ret
+        except Exception as err:
+            print("Error: ", err)

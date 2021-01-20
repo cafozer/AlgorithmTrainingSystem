@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<section class="hero is-success welcome is-small" style="margin-bottom:10mm">
+  <div class="hero-body">
+      <div class="container">
+          <h1 class="title">
+              Welcome to "Algorithm Training System".
+          </h1>
+          {%if problem_number%}
+          <h2 class="subtitle">
+              There are {{problem_number}} problems in the system, waiting for you to solve them.
+          </h2>
+          {%endif%}
+      </div>
+  </div>
+</section>
 <section class="container">
     <div class="columns features">
       <div class="column is-6">
