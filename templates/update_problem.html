@@ -44,14 +44,11 @@
               {% endfor %}  
               <div class="field">
                 <div class="control">
-                  {{ form.problem_topics(required=False) }}
+                  {{ form.problem_topics(required=True) }}
                 </div>
               </div>
-              <a class="button is-small" style="margin-bottom: 5mm;" href="{{url_for('new_topic_page')}}">
-                Add new topic
-              </a>
               <button class="button is-block is-info is-large is-fullwidth">
-                Add
+                Update
               </button>
             </form>
           </div>

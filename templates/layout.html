@@ -52,7 +52,9 @@
 
     <main>
         {% for message in get_flashed_messages() %}
-        <div class="notification is-info">{{ message }}</div>
+        <div class="notification is-danger">
+            {{ message }}
+        </div>
         {% endfor %}
 
       <section class="section">

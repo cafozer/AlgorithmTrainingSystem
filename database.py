@@ -31,8 +31,10 @@ class Database:
                 statement = "INSERT INTO USER_TABLE (number_of_questions_added, dislikes, username, likes, user_password) VALUES (%s, %s, %s, %s, %s)"
                 cursor.execute(statement, [user.number_of_questions_added, user.number_of_dislikes, user.username, user.number_of_likes, user.password])
                 cursor.close()
+                return user
         except Exception as err:
             print("Error: ", err)
+            return None
 
     def get_user(self, username):
         try:
@@ -105,6 +107,7 @@ class Database:
                 return ret
         except Exception as err:
             print("Error: ", err)
+            return None
     
     def delete_problem(self, problem_name):
         """
@@ -215,8 +218,10 @@ class Database:
                 statement = "INSERT INTO topic (topic_name) VALUES (%s)"
                 cursor.execute(statement, [topic.name])
                 cursor.close()
+                return topic
         except Exception as err:
             print("Error: ", err)
+            return None
 
     def get_topic(self, key):
         """
@@ -289,6 +294,14 @@ class Database:
         """
         self.status.append(status_)
         """
+        try:
+            with psycopg2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                statement = "DELETE FROM STATUS WHERE problem_id = %s AND user_id = %s"
+                cursor.execute(statement, [status_.problem_id, status_.user_id])
+                cursor.close()
+        except Exception as err:
+            print("Error: ", err)
         try:
             with psycopg2.connect(self.url) as connection:
                 cursor = connection.cursor()

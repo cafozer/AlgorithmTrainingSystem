@@ -83,7 +83,10 @@ def register_page():
         username = form.data["username"]
         password = hasher.hash(form.data["password"])
         db = current_app.config["db"]
-        db.add_user(User(username,password))
+        u = db.add_user(User(username,password))
+        if u is None:
+            flash("Username is currently in use, please choose another")
+            return redirect(url_for('register_page'))
         next_page = request.args.get("next", url_for("login_page"))
         return redirect(next_page)
     return render_template("register.html", form=form)
@@ -117,6 +120,9 @@ def problem_add_page():
         id_of_owner = db.get_user_key(current_user.username)
         newproblem = Problem(name, url, int(difficulty), id_of_owner)
         problem_id = db.add_problem(newproblem)
+        if problem_id is None:
+            flash("Please choose another problem name")
+            return redirect(url_for('problem_add_page'))
         for topic_id in form.data["problem_topics"]:
             db.add_problem_topic_rel(topic_id, problem_id)
         db.increase_number_of_questions(id_of_owner)
@@ -130,7 +136,10 @@ def new_topic_page():
         name = form.data["topic_name"]
         db = current_app.config["db"]
         newtopic = Topic(name)
-        db.add_topic(newtopic)
+        check = db.add_topic(newtopic)
+        if check is None:
+            flash("Problem name is already exist")
+            return redirect(url_for('problem_add_page'))
         return redirect(url_for('problem_add_page'))
     return render_template("addnewtopic.html", form=form)
 
@@ -186,7 +195,7 @@ def problems_of_a_user(userid):
 
 def update_problem_page(probid):
     db = current_app.config["db"]
-    setattr(AddProblemForm, 'problem_topics', MultiCheckboxField('Problem Topics', choices=db.give_topics(), default=1))
+    setattr(AddProblemForm, 'problem_topics', MultiCheckboxField('Problem Topics', choices=db.give_topics(), validators=[at_least_one]))
     form = AddProblemForm()
     if form.validate_on_submit():
         name = form.data["problem_name"]
