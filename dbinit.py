@@ -3,11 +3,11 @@ import sys
 import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
-    "DROP TABLE IF EXISTS USER_TABLE",
-    "DROP TABLE IF EXISTS Problem",
-    "DROP TABLE IF EXISTS Status",
-    "DROP TABLE IF EXISTS Topic",
-    "DROP TABLE IF EXISTS ProblemTopicRelation", 
+    "DROP TABLE IF EXISTS ProblemTopicRelation CASCADE",
+    "DROP TABLE IF EXISTS Topic CASCADE",
+    "DROP TABLE IF EXISTS Status CASCADE",
+    "DROP TABLE IF EXISTS Problem CASCADE",
+    "DROP TABLE IF EXISTS USER_TABLE CASCADE",
 
     """CREATE TABLE IF NOT EXISTS USER_TABLE(
     User_ID                       			SERIAL,
